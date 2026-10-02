@@ -241,12 +241,19 @@ nav button.on svg { color: var(--gold); }
 
   function readKey() {
     const fromUrl = new URLSearchParams(location.search).get('k') || new URLSearchParams(location.hash.slice(1)).get('k');
-    if (fromUrl) {
-      try { localStorage.setItem('radar_key', fromUrl); } catch (e) {}
-      try { history.replaceState(null, '', location.pathname + (location.hash.includes('tgWebApp') ? location.hash : '')); } catch (e) {}
-      return fromUrl;
-    }
-    try { return localStorage.getItem('radar_key'); } catch (e) { return null; }
+    let key = fromUrl;
+    if (key) { try { localStorage.setItem('radar_key', key); } catch (e) {} }
+    else { try { key = localStorage.getItem('radar_key'); } catch (e) { key = null; } }
+    try {
+      if (inTelegram) {
+        // Inside Telegram the key does not need to stay in the address.
+        if (fromUrl) history.replaceState(null, '', location.pathname + location.hash);
+      } else if (key && !new URLSearchParams(location.search).get('k')) {
+        // In a normal browser keep the key in the address, so "Add to Home Screen" saves a working link.
+        history.replaceState(null, '', location.pathname + '?k=' + encodeURIComponent(key));
+      }
+    } catch (e) {}
+    return key;
   }
 
   async function load() {
