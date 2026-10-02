@@ -197,6 +197,50 @@ ul.points li::before { content: ""; position: absolute; left: 2px; top: 0.62em; 
 .explain details[open] summary::after { content: "–"; }
 .explain details p { margin: 8px 0 0; color: var(--text-2); }
 
+/* Assistant */
+.card-actions { display: flex; gap: 8px; margin-top: 14px; }
+.card-actions .explain-btn { margin-top: 0; flex: 1 1 0; padding: 12px 8px; font-size: 14px; }
+.ask-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 14px; font-weight: 620; font-size: 14px; color: var(--gold); }
+.ask-link svg { width: 15px; height: 15px; }
+.fab { position: fixed; right: max(16px, calc((100vw - 560px) / 2 + 16px)); bottom: calc(var(--nav-h) + var(--safe-b) + 22px); z-index: 11; display: flex; align-items: center; gap: 8px; padding: 13px 18px; border-radius: 999px; background: var(--gold); color: #1A1508; font-weight: 700; font-size: 14.5px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08) inset; }
+.fab svg { width: 16px; height: 16px; }
+.chat { position: fixed; left: 0; right: 0; top: 0; height: 100%; z-index: 30; background: var(--bg); display: flex; flex-direction: column; animation: rise 0.22s ease both; }
+.chat[hidden] { display: none; }
+.chat-top { flex: 0 0 auto; display: flex; align-items: center; gap: 12px; padding: calc(12px + var(--safe-t)) 16px 12px; border-bottom: 1px solid var(--line); }
+.chat-top .who { flex: 1 1 auto; min-width: 0; }
+.chat-top .who strong { display: block; font-size: 16px; }
+.chat-top .who span { display: block; font-size: 12.5px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chat-close { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line-strong); display: grid; place-items: center; font-size: 20px; line-height: 1; color: var(--text-2); }
+.chat-body { flex: 1 1 auto; overflow-y: auto; padding: 18px 16px; -webkit-overflow-scrolling: touch; }
+.chat-inner { max-width: 560px; margin: 0 auto; }
+.msg { margin-bottom: 16px; max-width: 92%; }
+.msg.user { margin-left: auto; padding: 10px 14px; border-radius: 18px 18px 4px 18px; background: var(--surface-2); border: 1px solid var(--line-strong); width: fit-content; }
+.msg.ai p { margin: 0 0 10px; }
+.msg.ai ul { margin: 0 0 10px; padding-left: 18px; color: var(--text-2); }
+.msg.ai li { margin-bottom: 5px; }
+.msg.ai strong { color: var(--text); font-weight: 650; }
+.msg.err { color: var(--amber); font-size: 14px; }
+.typing { display: inline-flex; gap: 4px; padding: 6px 0; }
+.typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--text-3); animation: blink 1.1s infinite both; }
+.typing i:nth-child(2) { animation-delay: 0.18s; }
+.typing i:nth-child(3) { animation-delay: 0.36s; }
+@keyframes blink { 0%, 80%, 100% { opacity: 0.25; } 40% { opacity: 1; } }
+.suggest { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.suggest button { text-align: left; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); color: var(--text); font-size: 14.5px; }
+.chat-hello { color: var(--text-2); margin: 6px 0 16px; }
+.chat-hello strong { display: block; color: var(--text); font-size: 19px; letter-spacing: -0.01em; margin-bottom: 4px; }
+.chat-form { flex: 0 0 auto; padding: 10px 12px calc(10px + var(--safe-b)); border-top: 1px solid var(--line); background: rgba(11, 11, 15, 0.9); }
+.chat-form .inner { max-width: 560px; margin: 0 auto; display: flex; gap: 8px; align-items: flex-end; }
+.chat-form textarea { flex: 1 1 auto; resize: none; max-height: 120px; padding: 11px 14px; border-radius: 18px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--text); font: inherit; font-size: 16px; line-height: 1.35; outline: none; }
+.chat-send { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; background: var(--gold); color: #1A1508; display: grid; place-items: center; }
+.chat-send:disabled { opacity: 0.4; }
+.chat-send svg { width: 18px; height: 18px; }
+.setup p { color: var(--text-2); margin: 0 0 14px; }
+.setup .primary { display: block; width: 100%; padding: 14px; border-radius: 14px; background: var(--gold); color: #1A1508; font-weight: 700; margin-bottom: 12px; }
+.setup textarea { width: 100%; min-height: 78px; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--text); font: inherit; font-size: 16px; outline: none; margin-bottom: 10px; }
+.setup .secondary { display: block; width: 100%; padding: 13px; border-radius: 14px; border: 1px solid var(--line-strong); font-weight: 650; }
+.setup .hint { font-size: 12.5px; color: var(--text-3); margin-top: 14px; }
+
 /* Bottom navigation */
 nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; padding: 8px 10px calc(8px + var(--safe-b)); background: rgba(11, 11, 15, 0.82); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); border-top: 1px solid var(--line); }
 nav .inner { max-width: 560px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
@@ -224,6 +268,12 @@ nav button.on svg { color: var(--gold); }
     <button data-tab="stato"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>Stato</button>
   </div>
 </nav>
+<button class="fab" id="fab" hidden><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 5.6a3 3 0 0 0 1.9 1.9L21.4 11.4l-5.6 1.9a3 3 0 0 0-1.9 1.9L12 20.8l-1.9-5.6a3 3 0 0 0-1.9-1.9L2.6 11.4l5.6-1.9a3 3 0 0 0 1.9-1.9z"/></svg>Chiedi</button>
+<div class="chat" id="chat" hidden>
+  <div class="chat-top"><div class="who"><strong>Assistente del Radar</strong><span id="chat-sub"></span></div><button class="chat-close" id="chat-close" aria-label="Chiudi">×</button></div>
+  <div class="chat-body" id="chat-body"><div class="chat-inner" id="chat-inner"></div></div>
+  <form class="chat-form" id="chat-form"><div class="inner"><textarea id="chat-input" rows="1" placeholder="Scrivi la tua domanda"></textarea><button class="chat-send" id="chat-send" aria-label="Invia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button></div></form>
+</div>
 <script>
 (() => {
   const tg = window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData !== undefined ? window.Telegram.WebApp : null;
@@ -236,6 +286,7 @@ nav button.on svg { color: var(--gold); }
   const $nav = document.getElementById('nav');
   const state = { tab: 'oggi', day: null, country: 'IT', skool: 'top', area: 'tutte', q: '' };
   let DATA = null;
+  let CRYPTO_KEY = null;
 
   const AREAS = {
     offerta_pricing: 'Offerta e pricing',
@@ -290,8 +341,8 @@ nav button.on svg { color: var(--gold); }
       const resp = await fetch('data.enc?t=' + Date.now(), { cache: 'no-store' });
       if (!resp.ok) throw new Error('http');
       const blob = new Uint8Array(await resp.arrayBuffer());
-      const cryptoKey = await crypto.subtle.importKey('raw', b64ToBytes(key), 'AES-GCM', false, ['decrypt']);
-      const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: blob.slice(0, 12) }, cryptoKey, blob.slice(12));
+      CRYPTO_KEY = await crypto.subtle.importKey('raw', b64ToBytes(key), 'AES-GCM', false, ['decrypt']);
+      const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: blob.slice(0, 12) }, CRYPTO_KEY, blob.slice(12));
       DATA = JSON.parse(new TextDecoder().decode(plain));
     } catch (e) {
       return message('Non riesco ad aprire il radar', 'Riaprilo dal pulsante nell\'ultimo messaggio del bot su Telegram.');
@@ -299,6 +350,7 @@ nav button.on svg { color: var(--gold); }
     const days = dayList();
     state.day = days.length ? days[0].date : null;
     $nav.hidden = false;
+    $fab.hidden = false;
     render();
   }
 
@@ -338,15 +390,21 @@ nav button.on svg { color: var(--gold); }
       (s.prova ? '<div class="field"><div class="label">Prova</div><p>' + esc(s.prova) + '</p></div>' : '') +
       (s.perche ? '<div class="field why"><div class="label">Perché ti riguarda</div><p>' + esc(s.perche) + '</p></div>' : '') +
       (s.mossa ? '<div class="move"><div class="label">Mossa</div><p>' + esc(s.mossa) + '</p></div>' : '') +
-      explainBlock(s.spiegazione) +
+      cardActions(s) +
       '</article>';
+  }
+
+  function cardActions(s) {
+    const x = s.spiegazione;
+    const ask = '<button class="explain-btn" data-ask="signal" data-id="' + esc(s.item_id) + '">' + SPARK_ICON + 'Chiedi all\'IA</button>';
+    if (!x || !x.in_breve) return '<div class="card-actions">' + ask + '</div>';
+    return '<div class="card-actions"><button class="explain-btn" data-explain><span class="more-l">Spiegamelo semplice</span><span class="less">Chiudi</span></button>' + ask + '</div>' + explainBlock(x);
   }
 
   function explainBlock(x) {
     if (!x || !x.in_breve) return '';
     const list = (items) => '<ul class="points">' + items.map((p) => '<li>' + esc(p) + '</li>').join('') + '</ul>';
-    return '<button class="explain-btn" data-explain>' + SPARK_ICON + '<span class="more-l">Spiegamelo semplice</span><span class="less">Chiudi la spiegazione</span></button>' +
-      '<div class="explain">' +
+    return '<div class="explain">' +
       '<p class="lead">' + esc(x.in_breve) + '</p>' +
       ((x.termini || []).length ? '<h4>Parole da sapere</h4><dl>' + x.termini.map((t) => '<dt>' + esc(t.termine) + '</dt><dd>' + esc(t.significato) + '</dd>').join('') + '</dl>' : '') +
       ((x.fonte_dice || []).length ? '<h4>Cosa dice davvero la fonte</h4>' + list(x.fonte_dice) : '') +
@@ -377,11 +435,12 @@ nav button.on svg { color: var(--gold); }
     return html;
   }
 
-  function sectionText(section) {
+  function sectionText(section, key) {
     if (!section) return '';
     const points = (section.punti || []).map((p) => '<li>' + esc(p) + '</li>').join('');
     return '<div class="card">' + (points ? '<ul class="points">' + points + '</ul>' : '') +
-      (section.per_te ? '<div class="move"><div class="label">Per te</div><p>' + esc(section.per_te) + '</p></div>' : '') + '</div>';
+      (section.per_te ? '<div class="move"><div class="label">Per te</div><p>' + esc(section.per_te) + '</p></div>' : '') +
+      (key ? '<button class="ask-link" data-ask="section" data-id="' + key + '">' + SPARK_ICON + 'Chiedi all\'IA su questi dati</button>' : '') + '</div>';
   }
   const delta = (n) => (typeof n !== 'number' || n === 0 ? '' : '<span class="delta ' + (n > 0 ? 'up' : 'down') + '">' + (n > 0 ? '+' : '−') + Math.abs(n).toLocaleString('it-IT') + '</span>');
 
@@ -461,9 +520,9 @@ nav button.on svg { color: var(--gold); }
     const s = (brief && brief.sezioni) || {};
     let html = header() + '<h1>Settimana ' + esc(String(week).split('-W')[1] || '') + '</h1><p class="sub">Inserzioni, team di vendita, Skool</p>';
     if (brief && brief.chiusura) html += '<div class="quote"><div class="label">In una frase</div>' + esc(brief.chiusura) + '</div>';
-    html += '<div class="section-title"><h3>Inserzioni</h3><span>Meta Ad Library</span></div>' + sectionText(s.inserzioni) + adsModule(m && m.inserzioni);
-    html += '<div class="section-title"><h3>Team di vendita</h3><span>annunci setter e closer</span></div>' + sectionText(s.team_vendita) + jobsModule(m && m.annunci_lavoro);
-    html += '<div class="section-title"><h3>Skool</h3><span>classifica Discovery</span></div>' + sectionText(s.skool) + skoolModule(m && m.skool);
+    html += '<div class="section-title"><h3>Inserzioni</h3><span>Meta Ad Library</span></div>' + sectionText(s.inserzioni, 'inserzioni') + adsModule(m && m.inserzioni);
+    html += '<div class="section-title"><h3>Team di vendita</h3><span>annunci setter e closer</span></div>' + sectionText(s.team_vendita, 'team_vendita') + jobsModule(m && m.annunci_lavoro);
+    html += '<div class="section-title"><h3>Skool</h3><span>classifica Discovery</span></div>' + sectionText(s.skool, 'skool') + skoolModule(m && m.skool);
     return html;
   }
 
@@ -480,7 +539,7 @@ nav button.on svg { color: var(--gold); }
       if (r.date !== last) { last = r.date; html += '<div class="group">' + esc(longDate(r.date)) + '</div>'; }
       html += '<div class="item" data-item role="button" tabindex="0"><div class="item-head"><div class="mini' + (r.punteggio >= 9 ? ' top' : '') + '">' + esc(r.punteggio) + '</div><div><div class="t">' + esc(r.segnale) + '</div><div class="m">' + esc(r.fonte) + (AREAS[first(r.area)] ? ' · ' + esc(AREAS[first(r.area)]) : '') + '</div></div></div>' +
         '<div class="more">' + (r.prova ? '<p><b style="color:var(--text)">Prova.</b> ' + esc(r.prova) + '</p>' : '') + (r.implicazione ? '<p><b style="color:var(--text)">Implicazione.</b> ' + esc(r.implicazione) + '</p>' : '') +
-        '<a data-link href="' + esc(safeUrl(r.url)) + '" target="_blank" rel="noopener">Apri la fonte ↗</a></div></div>';
+        '<a data-link href="' + esc(safeUrl(r.url)) + '" target="_blank" rel="noopener">Apri la fonte ↗</a> &nbsp;·&nbsp; <a href="#" data-ask="archive" data-id="' + esc(r.id) + '">Chiedi all\'IA</a></div></div>';
     });
     return html;
   }
@@ -506,9 +565,239 @@ nav button.on svg { color: var(--gold); }
         return '<li class="row"><span class="dot ' + cls + '"></span><div class="main"><div class="name">' + esc(h.nome) + '</div><div class="meta">' + esc(ago(h.ultimo_controllo)) + '</div></div><div class="side"><div class="small" style="font-size:13px">' + side + '</div></div></li>';
       }).join('') + '</ul></div>';
     });
+    html += '<div class="section-title"><h3>Assistente IA</h3><span></span></div><div class="card"><ul class="rows"><li class="row"><span class="dot ' + (aiKey() ? '' : 'idle') + '"></span><div class="main"><div class="name">' + (aiKey() ? 'Attivo su questo dispositivo' : 'Non ancora attivo qui') + '</div><div class="meta">' + (aiKey() ? 'La chiave resta solo su questo dispositivo' : 'Tocca Chiedi per attivarlo') + '</div></div><div class="side">' + (aiKey() ? '<button class="delta down" data-ai-off>Disattiva</button>' : '') + '</div></li></ul></div>';
     html += '<div class="note">Il brief arriva ogni mattina alle 9. Se una fonte si rompe il bot ti avvisa su Telegram e ti dice cosa scrivere per ripararla.</div>';
     return html;
   }
+
+  // ---- assistant
+  const $chat = document.getElementById('chat');
+  const $chatInner = document.getElementById('chat-inner');
+  const $chatBody = document.getElementById('chat-body');
+  const $chatInput = document.getElementById('chat-input');
+  const $chatSend = document.getElementById('chat-send');
+  const $chatForm = document.getElementById('chat-form');
+  const $fab = document.getElementById('fab');
+  let chat = null;
+
+  const SYSTEM = 'Sei l\'assistente personale di Elia dentro il suo Radar del mercato infobusiness. ' +
+    'Rispondi in italiano semplice, con frasi corte e tono diretto da socio operativo. Elia non conosce il gergo: ' +
+    'quando usi un termine tecnico o inglese spiegalo in poche parole. Prima rispondi alla domanda in 2-4 frasi; poi, solo se serve, ' +
+    'aggiungi un esempio concreto sul suo business o i passi pratici. Basati sui MATERIALI che ricevi (brief, dati, testo originale della fonte). ' +
+    'Non inventare numeri: se una cosa non è nei materiali dillo chiaramente, e distingui ciò che dice la fonte da ciò che è tua conoscenza generale. ' +
+    'Niente motivazione, niente premesse. Formato: testo semplice; al massimo elenchi con "- " e grassetto con **.';
+
+  function aiKey() {
+    try { const v = JSON.parse(localStorage.getItem('radar_ai') || 'null'); return v && v.k ? v : null; } catch (e) { return null; }
+  }
+  function saveAiKey(raw) {
+    let text = String(raw || '').trim().replace(/^radar-ai:/, '');
+    const parts = text.split('|').map((x) => x.trim());
+    if (!/^sk-ant-[A-Za-z0-9_-]{20,}$/.test(parts[0] || '')) return false;
+    try { localStorage.setItem('radar_ai', JSON.stringify({ k: parts[0], w: parts[1] || '' })); } catch (e) { return false; }
+    return true;
+  }
+
+  async function sourceText(id) {
+    if (!id || !(DATA.source_ids || []).includes(id)) return '';
+    try {
+      const resp = await fetch('src/' + id + '.enc', { cache: 'force-cache' });
+      if (!resp.ok) return '';
+      const blob = new Uint8Array(await resp.arrayBuffer());
+      const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: blob.slice(0, 12) }, CRYPTO_KEY, blob.slice(12));
+      return JSON.parse(new TextDecoder().decode(plain)).testo || '';
+    } catch (e) { return ''; }
+  }
+
+  function generalMaterial() {
+    const today = DATA.briefs.find((b) => b.kind === 'daily') || DATA.briefs[0];
+    const strip = (b) => b && { data: b.label, segnali: (b.signals || []).map((x) => ({ titolo: x.titolo, prova: x.prova, perche: x.perche, mossa: x.mossa, fonte: x.fonte })), scartati: b.scartati, nota_rumore: b.nota_rumore, sezioni: b.sezioni, chiusura: b.chiusura };
+    return 'BRIEF DI OGGI:\n' + JSON.stringify(strip(today)) + '\n\nBRIEF SETTIMANALE:\n' + JSON.stringify(strip(weeklyBrief())) +
+      '\n\nDATI DELLA SETTIMANA (inserzioni, annunci di lavoro, Skool):\n' + JSON.stringify(DATA.weekly_metrics) +
+      '\n\nSEGNALI DEGLI ULTIMI 30 GIORNI:\n' + DATA.archive.slice(0, 80).map((r) => r.date + ' | ' + r.fonte + ' | ' + r.punteggio + ' | ' + r.segnale + ' | ' + (r.implicazione || '')).join('\n');
+  }
+
+  async function openChat(kind, id) {
+    let sub = 'Domande su tutto il radar';
+    let material = null;
+    let suggestions = ['Qual è la cosa più importante di oggi, in parole semplici?', 'Cosa stanno facendo i competitor italiani nelle inserzioni?', 'Quanto pagano setter e closer in Italia?'];
+    if (kind === 'signal' || kind === 'archive') {
+      const card = kind === 'signal'
+        ? DATA.briefs.flatMap((b) => b.signals || []).find((x) => x.item_id === id)
+        : DATA.archive.find((r) => r.id === id);
+      if (card) {
+        sub = card.titolo || card.segnale;
+        suggestions = ['Spiegamelo come se avessi 15 anni', 'Cosa devo fare io, in pratica, da domani?', 'Quali rischi vedi per me se lo applico?', 'Cosa dice esattamente la fonte su questo?'];
+        material = async () => 'SEGNALE:\n' + JSON.stringify(card) + '\n\nTESTO ORIGINALE DELLA FONTE:\n' + ((await sourceText(id)) || '(non disponibile: rispondi sulla base del segnale)');
+      }
+    } else if (kind === 'section') {
+      const names = { inserzioni: 'Inserzioni', team_vendita: 'Team di vendita', skool: 'Skool' };
+      const metricKey = { inserzioni: 'inserzioni', team_vendita: 'annunci_lavoro', skool: 'skool' }[id];
+      const brief = weeklyBrief();
+      sub = names[id] + ' della settimana';
+      suggestions = ['Spiegami questi dati in parole semplici', 'Cosa dovrei copiare e cosa evitare?', 'Qual è il dato più importante qui e perché?'];
+      material = async () => 'SEZIONE DEL BRIEF:\n' + JSON.stringify(brief && brief.sezioni ? brief.sezioni[id] : null) + '\n\nDATI COMPLETI:\n' + JSON.stringify(DATA.weekly_metrics ? DATA.weekly_metrics[metricKey] : null);
+    }
+    chat = { sub, suggestions, material: material || (async () => generalMaterial()), materialText: null, messages: [], busy: false };
+    document.getElementById('chat-sub').textContent = sub;
+    $chat.hidden = false; $fab.hidden = true;
+    document.body.style.overflow = 'hidden';
+    fitChat();
+    renderChat();
+  }
+
+  function closeChat() {
+    if (chat && chat.abort) { try { chat.abort.abort(); } catch (e) {} }
+    chat = null; $chat.hidden = true; $fab.hidden = false;
+    document.body.style.overflow = '';
+    try { inTelegram && tg.closeScanQrPopup && tg.closeScanQrPopup(); } catch (e) {}
+  }
+
+  function fitChat() {
+    const vv = window.visualViewport;
+    $chat.style.height = (vv ? vv.height : window.innerHeight) + 'px';
+    $chat.style.top = (vv ? vv.offsetTop : 0) + 'px';
+  }
+  if (window.visualViewport) { window.visualViewport.addEventListener('resize', fitChat); window.visualViewport.addEventListener('scroll', fitChat); }
+
+  function rich(text) {
+    const lines = esc(text).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>').split('\n');
+    let html = '', list = false, para = [];
+    const flush = () => { if (para.length) { html += '<p>' + para.join('<br>') + '</p>'; para = []; } };
+    lines.forEach((line) => {
+      const m = line.match(/^\s*(?:[-•*]|\d+[.)])\s+(.*)$/);
+      if (m) { flush(); if (!list) { html += '<ul>'; list = true; } html += '<li>' + m[1] + '</li>'; }
+      else { if (list) { html += '</ul>'; list = false; } if (line.trim()) para.push(line); else flush(); }
+    });
+    if (list) html += '</ul>';
+    flush();
+    return html;
+  }
+
+  function renderChat() {
+    if (!chat) return;
+    $chatForm.style.display = aiKey() ? '' : 'none';
+    if (!aiKey()) {
+      const canScan = inTelegram && typeof tg.showScanQrPopup === 'function' && tg.isVersionAtLeast && tg.isVersionAtLeast('6.4');
+      $chatInner.innerHTML = '<div class="setup"><div class="chat-hello"><strong>Attiva l\'assistente</strong>Serve una volta sola su questo dispositivo.</div>' +
+        '<p>' + (canScan ? 'Sul Mac è aperta un\'immagine con un codice QR (ATTIVA-CHAT). Tocca il pulsante qui sotto e inquadrala con il telefono.' : 'Sul Mac, nella cartella del radar, apri il file ATTIVA-CHAT.txt, copia tutto il codice e incollalo qui sotto.') + '</p>' +
+        (canScan ? '<button class="primary" data-scan>Inquadra il QR sul Mac</button>' : '') +
+        '<textarea id="ai-code" placeholder="Incolla qui il codice di attivazione" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>' +
+        '<button class="secondary" data-activate>Attiva</button><div class="hint" id="ai-hint">La chiave resta solo su questo dispositivo: non viene pubblicata da nessuna parte.</div></div>';
+      return;
+    }
+    let html = '';
+    if (!chat.messages.length) {
+      html += '<div class="chat-hello"><strong>Chiedimi quello che vuoi</strong>Ho davanti la fonte originale, il tuo profilo e i dati del radar.</div><div class="suggest">' +
+        chat.suggestions.map((q) => '<button data-suggest>' + esc(q) + '</button>').join('') + '</div>';
+    }
+    chat.messages.forEach((m) => {
+      if (m.role === 'user') html += '<div class="msg user">' + esc(m.content) + '</div>';
+      else if (m.error) html += '<div class="msg err">' + esc(m.content) + '</div>';
+      else html += '<div class="msg ai">' + (m.content ? rich(m.content) : '<span class="typing"><i></i><i></i><i></i></span>') + '</div>';
+    });
+    $chatInner.innerHTML = html;
+    $chatSend.disabled = chat.busy;
+    $chatBody.scrollTop = $chatBody.scrollHeight;
+  }
+
+  function friendlyError(status, body) {
+    const text = (body && body.error && body.error.message) || '';
+    if (status === 401 || status === 403) return 'La chiave non è più valida su questo dispositivo. Vai in Stato, disattiva l\'assistente e riattivalo.';
+    if (/credit balance/i.test(text)) return 'Il credito Anthropic è finito: ricaricalo su console.anthropic.com e riprova.';
+    if (status === 429 || status === 529 || status >= 500) return 'L\'IA è occupata in questo momento. Riprova tra qualche secondo.';
+    return 'Non sono riuscito a rispondere. Riprova.';
+  }
+
+  async function ask(question) {
+    question = String(question || '').trim();
+    const cfg = aiKey();
+    if (!chat || chat.busy || !question || !cfg) return;
+    chat.messages.push({ role: 'user', content: question });
+    const answer = { role: 'assistant', content: '' };
+    chat.messages.push(answer);
+    chat.busy = true;
+    $chatInput.value = ''; $chatInput.style.height = '';
+    renderChat();
+    const mine = chat;
+    try {
+      if (mine.materialText === null) mine.materialText = await mine.material();
+      mine.abort = new AbortController();
+      const headers = { 'content-type': 'application/json', 'x-api-key': cfg.k, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' };
+      if (cfg.w) headers['anthropic-workspace-id'] = cfg.w;
+      const resp = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers,
+        signal: mine.abort.signal,
+        body: JSON.stringify({
+          model: DATA.ai_model || 'claude-sonnet-5-5',
+          max_tokens: 3000,
+          stream: true,
+          output_config: { effort: 'low' },
+          system: [
+            { type: 'text', text: SYSTEM + '\n\nPROFILO DI ELIA:\n' + (DATA.profilo || '') },
+            { type: 'text', text: 'MATERIALI:\n' + mine.materialText, cache_control: { type: 'ephemeral' } },
+          ],
+          messages: mine.messages.filter((m) => !m.error && m.content).map((m) => ({ role: m.role, content: m.content })),
+        }),
+      });
+      if (!resp.ok) {
+        let body = null;
+        try { body = await resp.json(); } catch (e) {}
+        throw Object.assign(new Error('api'), { friendly: friendlyError(resp.status, body) });
+      }
+      const reader = resp.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '', stop = null;
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const events = buffer.split('\n\n');
+        buffer = events.pop();
+        for (const event of events) {
+          const line = event.split('\n').find((l) => l.startsWith('data:'));
+          if (!line) continue;
+          let data;
+          try { data = JSON.parse(line.slice(5)); } catch (e) { continue; }
+          if (data.type === 'content_block_delta' && data.delta && data.delta.type === 'text_delta') { answer.content += data.delta.text; if (chat === mine) renderChat(); }
+          else if (data.type === 'message_delta' && data.delta) stop = data.delta.stop_reason || stop;
+          else if (data.type === 'error') throw Object.assign(new Error('stream'), { friendly: friendlyError(529, data) });
+        }
+      }
+      if (stop === 'refusal' || !answer.content) { answer.error = true; answer.content = 'Su questa domanda non posso rispondere. Prova a riformularla.'; }
+    } catch (e) {
+      if (e.name === 'AbortError') return;
+      answer.error = true;
+      answer.content = e.friendly || 'Connessione non riuscita. Controlla la rete e riprova.';
+    } finally {
+      mine.busy = false;
+      if (chat === mine) renderChat();
+    }
+  }
+
+  $fab.addEventListener('click', () => { tap(); openChat('general'); });
+  document.getElementById('chat-close').addEventListener('click', closeChat);
+  $chatForm.addEventListener('submit', (e) => { e.preventDefault(); ask($chatInput.value); });
+  $chatInput.addEventListener('input', () => { $chatInput.style.height = 'auto'; $chatInput.style.height = Math.min(120, $chatInput.scrollHeight) + 'px'; });
+  $chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey && !('ontouchstart' in window)) { e.preventDefault(); ask($chatInput.value); } });
+  $chatInner.addEventListener('click', (e) => {
+    const s = e.target.closest('[data-suggest]');
+    if (s) return ask(s.textContent);
+    if (e.target.closest('[data-scan]')) {
+      try {
+        tg.showScanQrPopup({ text: 'Inquadra il QR ATTIVA-CHAT che vedi sul Mac' }, (text) => {
+          if (saveAiKey(text)) { tap(); renderChat(); return true; }
+          return false;
+        });
+      } catch (err) {}
+      return;
+    }
+    if (e.target.closest('[data-activate]')) {
+      if (saveAiKey(document.getElementById('ai-code').value)) renderChat();
+      else document.getElementById('ai-hint').textContent = 'Il codice non è valido. Copialo di nuovo dal file ATTIVA-CHAT.txt sul Mac.';
+    }
+  });
 
   const VIEWS = { oggi: viewOggi, settimana: viewSettimana, archivio: viewArchivio, stato: viewStato };
 
@@ -528,6 +817,9 @@ nav button.on svg { color: var(--gold); }
   $app.addEventListener('click', (e) => {
     const link = e.target.closest('a[data-link]');
     if (link) { if (inTelegram) { e.preventDefault(); try { tg.openLink(link.href); } catch (err) { window.open(link.href, '_blank'); } } return; }
+    const askBtn = e.target.closest('[data-ask]');
+    if (askBtn) { e.preventDefault(); e.stopPropagation(); tap(); return openChat(askBtn.dataset.ask, askBtn.dataset.id); }
+    if (e.target.closest('[data-ai-off]')) { try { localStorage.removeItem('radar_ai'); } catch (err) {} return render(true); }
     const ex = e.target.closest('[data-explain]');
     if (ex) { tap(); const card = ex.closest('.card'); card.classList.toggle('explained'); if (card.classList.contains('explained')) ex.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
     const t = e.target.closest('[data-day],[data-country],[data-skool],[data-area],[data-item]');
