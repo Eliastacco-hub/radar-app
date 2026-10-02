@@ -565,6 +565,15 @@ nav button.on svg { color: var(--gold); }
         return '<li class="row"><span class="dot ' + cls + '"></span><div class="main"><div class="name">' + esc(h.nome) + '</div><div class="meta">' + esc(ago(h.ultimo_controllo)) + '</div></div><div class="side"><div class="small" style="font-size:13px">' + side + '</div></div></li>';
       }).join('') + '</ul></div>';
     });
+    const c = DATA.costi;
+    if (c) {
+      const money = (n) => (typeof n === 'number' ? n.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' $' : 'n/d');
+      const line = (name, meta, value, pct) => '<li class="row"><div class="main"><div class="name">' + name + '</div><div class="meta">' + meta + '</div><div class="bar"><i style="width:' + Math.max(2, Math.min(100, Math.round(pct))) + '%"></i></div></div><div class="side"><div class="big">' + value + '</div></div></li>';
+      html += '<div class="section-title"><h3>Spesa di questo mese</h3><span>stima</span></div><div class="card"><ul class="rows">' +
+        line('Intelligenza artificiale', 'avviso su Telegram oltre ' + Math.round(c.ai_soglia) + ' $ · chat esclusa', money(c.ai_usd), (c.ai_usd / c.ai_soglia) * 100) +
+        (c.apify_limite ? line('Raccolta dati (Apify)', 'tetto mensile ' + Math.round(c.apify_limite) + ' $', money(c.apify_usd), (c.apify_usd / c.apify_limite) * 100) : '') +
+        '</ul></div>';
+    }
     html += '<div class="section-title"><h3>Assistente IA</h3><span></span></div><div class="card"><ul class="rows"><li class="row"><span class="dot ' + (aiKey() ? '' : 'idle') + '"></span><div class="main"><div class="name">' + (aiKey() ? 'Attivo su questo dispositivo' : 'Non ancora attivo qui') + '</div><div class="meta">' + (aiKey() ? 'La chiave resta solo su questo dispositivo' : 'Tocca Chiedi per attivarlo') + '</div></div><div class="side">' + (aiKey() ? '<button class="delta down" data-ai-off>Disattiva</button>' : '') + '</div></li></ul></div>';
     html += '<div class="note">Il brief arriva ogni mattina alle 9. Se una fonte si rompe il bot ti avvisa su Telegram e ti dice cosa scrivere per ripararla.</div>';
     return html;
