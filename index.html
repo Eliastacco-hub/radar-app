@@ -171,6 +171,32 @@ ul.points li::before { content: ""; position: absolute; left: 2px; top: 0.62em; 
 .dot.warn { background: var(--amber); }
 .dot.bad { background: var(--red); }
 
+/* Plain-language explanation */
+.explain-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 14px; padding: 12px; border-radius: 14px; border: 1px solid var(--line-strong); font-weight: 620; font-size: 14.5px; color: var(--text); background: rgba(255, 255, 255, 0.03); }
+.explain-btn svg { width: 16px; height: 16px; color: var(--gold); }
+.explain-btn .less { display: none; }
+.card.explained .explain-btn .more-l { display: none; }
+.card.explained .explain-btn .less { display: inline; }
+.explain { display: none; margin-top: 16px; }
+.card.explained .explain { display: block; animation: rise 0.25s ease both; }
+.explain .lead { font-size: 16px; line-height: 1.5; color: var(--text); margin: 0 0 4px; }
+.explain h4 { font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin: 20px 0 8px; }
+.explain dl { margin: 0; }
+.explain dt { font-weight: 650; color: var(--text); margin-top: 10px; }
+.explain dt:first-child { margin-top: 0; }
+.explain dd { margin: 2px 0 0; color: var(--text-2); }
+.explain ol { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+.explain ol li { position: relative; padding-left: 30px; margin-bottom: 10px; color: var(--text-2); counter-increment: step; }
+.explain ol li::before { content: counter(step); position: absolute; left: 0; top: 1px; width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--gold-line); color: var(--gold); font-size: 11.5px; font-weight: 700; display: grid; place-items: center; }
+.explain .example { padding: 13px 14px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line); color: var(--text); }
+.explain details { border-top: 1px solid var(--line); padding: 11px 0; }
+.explain details:last-child { padding-bottom: 0; }
+.explain summary { list-style: none; cursor: pointer; font-weight: 600; color: var(--text); display: flex; justify-content: space-between; gap: 12px; }
+.explain summary::-webkit-details-marker { display: none; }
+.explain summary::after { content: "+"; color: var(--text-3); font-weight: 400; font-size: 18px; line-height: 1; }
+.explain details[open] summary::after { content: "–"; }
+.explain details p { margin: 8px 0 0; color: var(--text-2); }
+
 /* Bottom navigation */
 nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; padding: 8px 10px calc(8px + var(--safe-b)); background: rgba(11, 11, 15, 0.82); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); border-top: 1px solid var(--line); }
 nav .inner { max-width: 560px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
@@ -222,6 +248,7 @@ nav button.on svg { color: var(--gold); }
   const TYPES = { dato: 'Dato', nuovo_framework: 'Framework', cambio_modello: 'Cambio modello', contrarian: 'Contrarian', mossa_competitor: 'Mossa competitor' };
   const WEEKDAYS = ['dom', 'lun', 'mar', 'mer', 'gio', 'ven', 'sab'];
   const MONTHS = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
+  const SPARK_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 5.6a3 3 0 0 0 1.9 1.9L21.4 11.4l-5.6 1.9a3 3 0 0 0-1.9 1.9L12 20.8l-1.9-5.6a3 3 0 0 0-1.9-1.9L2.6 11.4l5.6-1.9a3 3 0 0 0 1.9-1.9z"/></svg>';
   const LINK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>';
 
   const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -311,7 +338,22 @@ nav button.on svg { color: var(--gold); }
       (s.prova ? '<div class="field"><div class="label">Prova</div><p>' + esc(s.prova) + '</p></div>' : '') +
       (s.perche ? '<div class="field why"><div class="label">Perché ti riguarda</div><p>' + esc(s.perche) + '</p></div>' : '') +
       (s.mossa ? '<div class="move"><div class="label">Mossa</div><p>' + esc(s.mossa) + '</p></div>' : '') +
+      explainBlock(s.spiegazione) +
       '</article>';
+  }
+
+  function explainBlock(x) {
+    if (!x || !x.in_breve) return '';
+    const list = (items) => '<ul class="points">' + items.map((p) => '<li>' + esc(p) + '</li>').join('') + '</ul>';
+    return '<button class="explain-btn" data-explain>' + SPARK_ICON + '<span class="more-l">Spiegamelo semplice</span><span class="less">Chiudi la spiegazione</span></button>' +
+      '<div class="explain">' +
+      '<p class="lead">' + esc(x.in_breve) + '</p>' +
+      ((x.termini || []).length ? '<h4>Parole da sapere</h4><dl>' + x.termini.map((t) => '<dt>' + esc(t.termine) + '</dt><dd>' + esc(t.significato) + '</dd>').join('') + '</dl>' : '') +
+      ((x.fonte_dice || []).length ? '<h4>Cosa dice davvero la fonte</h4>' + list(x.fonte_dice) : '') +
+      (x.esempio ? '<h4>Un esempio per te</h4><div class="example">' + esc(x.esempio) + '</div>' : '') +
+      ((x.primi_passi || []).length ? '<h4>Primi passi</h4><ol>' + x.primi_passi.map((p) => '<li>' + esc(p) + '</li>').join('') + '</ol>' : '') +
+      ((x.domande || []).length ? '<h4>Domande che potresti farti</h4>' + x.domande.map((q) => '<details><summary>' + esc(q.domanda) + '</summary><p>' + esc(q.risposta) + '</p></details>').join('') : '') +
+      '</div>';
   }
 
   function viewOggi() {
@@ -486,6 +528,8 @@ nav button.on svg { color: var(--gold); }
   $app.addEventListener('click', (e) => {
     const link = e.target.closest('a[data-link]');
     if (link) { if (inTelegram) { e.preventDefault(); try { tg.openLink(link.href); } catch (err) { window.open(link.href, '_blank'); } } return; }
+    const ex = e.target.closest('[data-explain]');
+    if (ex) { tap(); const card = ex.closest('.card'); card.classList.toggle('explained'); if (card.classList.contains('explained')) ex.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
     const t = e.target.closest('[data-day],[data-country],[data-skool],[data-area],[data-item]');
     if (!t) return;
     if (t.dataset.day) { state.day = t.dataset.day; tap(); return render(); }
